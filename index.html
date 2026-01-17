@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrousel de Cartes - Project FI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #151a32 50%, #0a0e27 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Corben", sans-serif;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-container.dragging {
+            cursor: grabbing;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            position: absolute;
+            width: 280px;
+            height: 420px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            pointer-events: auto;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* État de la carte active (au centre) */
+        .card.active {
+            z-index: 50;
+            width: 340px;
+            height: 510px;
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* État des cartes à côté (légèrement réduites) */
+        .card.side {
+            z-index: 30;
+            width: 260px;
+            height: 390px;
+            transform: scale(0.85) translateY(20px);
+            opacity: 0.6;
+            filter: brightness(0.9);
+        }
+
+        /* État des cartes loin (très réduites) */
+        .card.far {
+            z-index: 20;
+            width: 220px;
+            height: 330px;
+            transform: scale(0.7) translateY(40px);
+            opacity: 0.3;
+            filter: brightness(0.8);
+        }
+
+        /* État des cartes très loin (presque invisibles) */
+        .card.very-far {
+            z-index: 10;
+            width: 180px;
+            height: 270px;
+            transform: scale(0.6) translateY(60px);
+            opacity: 0;
+            filter: brightness(0.6);
+            pointer-events: none;
+        }
+
+        /* Navigation info */
+        .carousel-info {
+            color: #e0e0e0;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background: rgba(21, 26, 50, 0.8);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin-top: 10px;
+        }
+
+        .carousel-info .current {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Instructions */
+        .carousel-instruction {
+            color: rgba(224, 224, 224, 0.7);
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 2px;
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .carousel-wrapper {
+                height: 450px;
+            }
+
+            .carousel-container {
+                max-width: 90vw;
+            }
+
+            .card {
+                width: 200px;
+                height: 300px;
+            }
+
+            .card.active {
+                width: 250px;
+                height: 375px;
+            }
+
+            .card.side {
+                width: 180px;
+                height: 270px;
+            }
+
+            .carousel-info {
+                font-size: 12px;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel-instruction">
+            Maintenez et déplacez la souris pour défiler
+        </div>
+        
+        <div class="carousel-wrapper" id="carouselContainer">
+            <div class="carousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Les cartes seront générées par JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-info">
+            Carte <span class="current" id="currentCard">1</span> / <span id="totalCards">0</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
