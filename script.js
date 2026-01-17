@@ -212,10 +212,18 @@ class CardCarousel {
 
         // Déterminer la direction (gauche ou droite)
         let finalDistance;
-        if (distance > this.numCards / 2 || (distance < 0 && distance > -this.numCards / 2)) {
-            finalDistance = -shortestDistance;
+        if (distance > 0 && distance > this.numCards / 2) {
+            // Carte à gauche (wraparound)
+            finalDistance = -(this.numCards - distance);
+        } else if (distance < 0 && distance < -this.numCards / 2) {
+            // Carte à droite (wraparound)
+            finalDistance = this.numCards + distance;
+        } else if (distance > 0) {
+            // Carte à droite
+            finalDistance = distance;
         } else {
-            finalDistance = shortestDistance;
+            // Carte à gauche
+            finalDistance = distance;
         }
 
         return finalDistance;
