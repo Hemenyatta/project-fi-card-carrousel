@@ -13,7 +13,7 @@ class CardCarousel {
         
         // Configuration
         this.cardImage = 'cartes/mystiques/Carte_test.png';
-        this.numCards = 3; // Nombre de cartes à créer
+        this.numCards = 5; // Nombre de cartes à créer
         this.dragSensitivity = 5; // Sensibilité du drag (plus élevé = plus lent)
         this.dragThreshold = 80; // Distance en pixels pour faire défiler une carte
         
@@ -82,8 +82,8 @@ class CardCarousel {
         // Snapping: avancer une carte seulement si le seuil est atteint
         const cardsToMove = Math.floor(Math.abs(this.accumulatedDrag) / this.dragThreshold);
         if (cardsToMove > 0) {
-            const direction = this.accumulatedDrag > 0 ? 1 : -1;
-            this.currentIndex -= cardsToMove * direction;
+            const direction = this.accumulatedDrag > 0 ? -1 : 1;
+            this.currentIndex += cardsToMove * direction;
             this.accumulatedDrag = this.accumulatedDrag % this.dragThreshold;
             this.updateCarousel();
         }
@@ -118,8 +118,8 @@ class CardCarousel {
         // Snapping: avancer une carte seulement si le seuil est atteint
         const cardsToMove = Math.floor(Math.abs(this.accumulatedDrag) / this.dragThreshold);
         if (cardsToMove > 0) {
-            const direction = this.accumulatedDrag > 0 ? 1 : -1;
-            this.currentIndex -= cardsToMove * direction;
+            const direction = this.accumulatedDrag > 0 ? -1 : 1;
+            this.currentIndex += cardsToMove * direction;
             this.accumulatedDrag = this.accumulatedDrag % this.dragThreshold;
             this.updateCarousel();
         }
