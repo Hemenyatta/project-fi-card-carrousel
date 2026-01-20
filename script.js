@@ -15,7 +15,7 @@ class CardCarousel {
         this.cardImage = 'cartes/mystiques/Carte_test.png';
         this.numCards = 5; // Nombre de cartes à créer
         this.dragSensitivity = 5; // Sensibilité du drag (plus élevé = plus lent)
-        this.dragThreshold = 400; // Distance en pixels pour faire défiler une carte
+        this.dragThreshold = 300; // Distance en pixels pour faire défiler une carte
         
         this.init();
     }
